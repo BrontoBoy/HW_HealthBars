@@ -1,41 +1,22 @@
 using UnityEngine;
 using TMPro;
 
-public class HealthBarText : MonoBehaviour
+public class HealthBarText : HealthView
 {
-    [SerializeField] private Health _health;
     [SerializeField] private TextMeshProUGUI _text;
 
-    private void Start()
+    protected override void Initialize()
     {
-        UpdateText(_health.Value, _health.MaxHealthValue);
+        UpdateText(_health.Value, _health.maxValue);
     }
     
-    private void OnEnable()
+    protected override void OnHealthChanged(int amount)
     {
-        if (_health != null)
-        {
-            _health.DamageTaken += OnHealthChanged;
-            _health.Healed += OnHealthChanged;
-        }
+        UpdateText(_health.Value, _health.maxValue);
     }
     
-    private void OnDisable()
+    private void UpdateText(int currentValue, int maxValue)
     {
-        if (_health != null)
-        {
-            _health.DamageTaken -= OnHealthChanged;
-            _health.Healed -= OnHealthChanged;
-        }
-    }
-
-    private void OnHealthChanged(int changeAmount)
-    {
-        UpdateText(_health.Value, _health.MaxHealthValue);
-    }
-
-    private void UpdateText(int currentHealth, int maxHealth)
-    {
-        _text.text = $"Здоровье: {currentHealth}/{maxHealth}"; 
+        _text.text = $"Здоровье: {currentValue}/{maxValue}";
     }
 }

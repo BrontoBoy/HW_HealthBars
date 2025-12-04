@@ -1,36 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBarSlider : MonoBehaviour
+public class HealthBarSlider : HealthView
 {
-    [SerializeField] private Health _health;
     [SerializeField] private Slider _slider;
 
-    private void Start()
+    protected override void Initialize()
     {
-        _slider.maxValue = _health.MaxHealthValue;
+        _slider.maxValue = _health.maxValue;
         _slider.value = _health.Value;
     }
-
-    private void OnEnable()
-    {
-        if (_health != null)
-        {
-            _health.DamageTaken += OnHealthChanged;
-            _health.Healed += OnHealthChanged;
-        }
-    }
     
-    private void OnDisable()
-    {
-        if (_health != null)
-        {
-            _health.DamageTaken -= OnHealthChanged;
-            _health.Healed -= OnHealthChanged;
-        }
-    }
-    
-    private void OnHealthChanged(int changeAmount)
+    protected override void OnHealthChanged(int amount)
     {
         _slider.value = _health.Value;
     }

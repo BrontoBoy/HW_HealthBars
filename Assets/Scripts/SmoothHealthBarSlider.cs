@@ -1,63 +1,52 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
-public class SmoothHealthBarSlider : MonoBehaviour
+public class SmoothHealthBarSlider : HealthView
 {
-    [SerializeField] private Health _health;
     [SerializeField] private Slider _slider;
     [SerializeField] private float _smoothSpeed = 3f;
     [SerializeField] private float _threshold = 0.1f;
 
-    private float _targetValue;
-    private bool _isUpdating;
+    private Coroutine _smoothCoroutine;
 
-    private void Start()
+    protected override void OnDisable()
     {
-        _slider.maxValue = _health.MaxHealthValue;
+        base.OnDisable();
+        
+        if (_smoothCoroutine != null)
+        {
+            StopCoroutine(_smoothCoroutine);
+            _smoothCoroutine = null;
+        }
+    }
+    
+    protected override void Initialize()
+    {
+        _slider.maxValue = _health.maxValue;
         _slider.value = _health.Value;
-        _targetValue = _health.Value;
+    }
+    
+    protected override void OnHealthChanged(int amount)
+    {
+        if (_smoothCoroutine != null)
+            StopCoroutine(_smoothCoroutine);
+        
+        _smoothCoroutine = StartCoroutine(SmoothUpdateCoroutine(_health.Value));
     }
 
-    private void OnEnable()
+    private IEnumerator SmoothUpdateCoroutine(float targetValue)
     {
-        if (_health != null)
+        while (Mathf.Abs(_slider.value - targetValue) > _threshold)
         {
-            _health.DamageTaken += OnHealthChanged;
-            _health.Healed += OnHealthChanged;
+            float newValue = Mathf.MoveTowards(_slider.value, targetValue,
+                _smoothSpeed * Time.deltaTime);
+            _slider.value = newValue;
+
+            yield return null;
         }
-    }
-    
-    private void OnDisable()
-    {
-        if (_health != null)
-        {
-            _health.DamageTaken -= OnHealthChanged;
-            _health.Healed -= OnHealthChanged;
-        }
-    }
-    
-    private void Update()
-    {
-        if (_isUpdating == false) 
-            return;
         
-        float currentValue = _slider.value;
-        float newValue = Mathf.MoveTowards(currentValue,
-            _targetValue, _smoothSpeed * Time.deltaTime
-        );
-        
-        _slider.value = newValue;
-        
-        if (Mathf.Abs(newValue - _targetValue) < _threshold)
-        {
-            _slider.value = _targetValue;
-            _isUpdating = false;
-        }
-    }
-    
-    private void OnHealthChanged(int changeAmount)
-    {
-        _targetValue = _health.Value;
-        _isUpdating = true;
+        _slider.value = targetValue;
+        _smoothCoroutine = null;
     }
 }
