@@ -23,8 +23,8 @@ public class SmoothHealthBarSlider : HealthView
     
     protected override void Initialize()
     {
-        _slider.maxValue = _health.maxValue;
-        _slider.value = _health.Value;
+        _slider.maxValue = Health.MaxValue;
+        _slider.value = Health.Value;
     }
     
     protected override void OnHealthChanged(int amount)
@@ -32,10 +32,10 @@ public class SmoothHealthBarSlider : HealthView
         if (_smoothCoroutine != null)
             StopCoroutine(_smoothCoroutine);
         
-        _smoothCoroutine = StartCoroutine(SmoothUpdateCoroutine(_health.Value));
+        _smoothCoroutine = StartCoroutine(UpdateSmoothCoroutine(Health.Value));
     }
 
-    private IEnumerator SmoothUpdateCoroutine(float targetValue)
+    private IEnumerator UpdateSmoothCoroutine(float targetValue)
     {
         while (Mathf.Abs(_slider.value - targetValue) > _threshold)
         {

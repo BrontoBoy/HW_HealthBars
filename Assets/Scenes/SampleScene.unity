@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cba7ce24a950cb40b1e9fdc7fe2e6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 1902629967}
+  Health: {fileID: 1902629967}
   _slider: {fileID: 325135362}
   _smoothSpeed: 3
   _threshold: 0.1
@@ -1097,7 +1097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852a2169f84d54f4483a7ed768c65bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 1902629967}
+  Health: {fileID: 1902629967}
   _slider: {fileID: 1255075833}
 --- !u!114 &1255075833
 MonoBehaviour:
@@ -1560,9 +1560,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e0dadea6beb674ca0bdbcfdffc2144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 1902629967}
-  _button: {fileID: 1868655393}
-  _amount: 15
+  Health: {fileID: 1902629967}
+  Button: {fileID: 1868655393}
+  Amount: 10
 --- !u!114 &1868655393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1811,7 +1811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69edb5ebe8ffd9428836f53dc60df18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 1902629967}
+  Health: {fileID: 1902629967}
   _text: {fileID: 1975401411}
 --- !u!114 &1975401411
 MonoBehaviour:
@@ -1964,9 +1964,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 142c7526b4b6a774ab82e2f31c2fbaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 1902629967}
-  _button: {fileID: 1995329721}
-  _amount: 10
+  Health: {fileID: 1902629967}
+  Button: {fileID: 1995329721}
+  Amount: 10
 --- !u!114 &1995329721
 MonoBehaviour:
   m_ObjectHideFlags: 0

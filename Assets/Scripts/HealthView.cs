@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class HealthView : MonoBehaviour
 {
-    [SerializeField] protected Health _health;
+    [SerializeField] protected Health Health;
     
     private void Start()
     {
@@ -11,19 +12,19 @@ public abstract class HealthView : MonoBehaviour
     
     protected virtual void OnEnable()
     {
-        if (_health != null)
+        if (Health != null)
         {
-            _health.DamageTaken += OnHealthChanged;
-            _health.Healed += OnHealthChanged;
+            Health.DamageTaken += OnHealthChanged;
+            Health.Healed += OnHealthChanged;
         }
     }
     
     protected virtual void OnDisable()
     {
-        if (_health != null)
+        if (Health != null)
         {
-            _health.DamageTaken -= OnHealthChanged;
-            _health.Healed -= OnHealthChanged;
+            Health.DamageTaken -= OnHealthChanged;
+            Health.Healed -= OnHealthChanged;
         }
     }
     

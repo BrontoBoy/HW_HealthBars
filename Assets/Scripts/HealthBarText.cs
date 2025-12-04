@@ -7,12 +7,12 @@ public class HealthBarText : HealthView
 
     protected override void Initialize()
     {
-        UpdateText(_health.Value, _health.maxValue);
+        UpdateText(Health.Value, Health.MaxValue);
     }
     
     protected override void OnHealthChanged(int amount)
     {
-        UpdateText(_health.Value, _health.maxValue);
+        UpdateText(Health.Value, Health.MaxValue);
     }
     
     private void UpdateText(int currentValue, int maxValue)

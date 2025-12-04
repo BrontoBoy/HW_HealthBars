@@ -1,30 +1,31 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public abstract class HealthButton : MonoBehaviour
 {
-    [SerializeField] protected Health _target;
-    [SerializeField] protected Button _button;
-    [SerializeField] protected int _amount = 10;
+    [SerializeField] protected Health Health;
+    [SerializeField] protected Button Button;
+    [SerializeField] protected int Amount = 10;
     
     protected virtual void OnClick()
     {
-        if (_target == null)
+        if (Health == null)
             return;
 
-        if (_amount <= 0)
+        if (Amount <= 0)
             return;
     }
     
     private void OnEnable()
     {
-        if (_button != null)
-            _button.onClick.AddListener(OnClick);
+        if (Button != null)
+            Button.onClick.AddListener(OnClick);
     }
     
     private void OnDisable()
     {
-        if (_button != null)
-            _button.onClick.RemoveListener(OnClick);
+        if (Button != null)
+            Button.onClick.RemoveListener(OnClick);
     }
 }

@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
     public event System.Action<int> DamageTaken;
     public event System.Action<int> Healed;
 
-    public int maxValue => _maxValue;
+    public int MaxValue => _maxValue;
     public int Value => _currentValue;
 
     private void Awake()
